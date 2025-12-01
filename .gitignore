@@ -1,0 +1,47 @@
+##########################
+# Maven
+##########################
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+##########################
+# IntelliJ IDEA
+##########################
+.idea/
+*.iml
+out/
+
+##########################
+# NetBeans
+##########################
+nbproject/private/
+build/
+dist/
+nb-configuration.xml
+
+##########################
+# Tomcat
+##########################
+*.war
+*.war.original
+
+##########################
+# OS files
+##########################
+.DS_Store
+Thumbs.db
+
+##########################
+# Logs
+##########################
+*.log
+
+##########################
+# Upload folders (si quieres evitar imágenes subidas)
+##########################
+# webapp/assets/uploads/
+

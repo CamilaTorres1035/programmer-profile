@@ -6,6 +6,7 @@ import com.programmerprofile.app.repository.JsonRepository;
 
 import com.programmerprofile.app.repository.ISkillRepository;
 import com.programmerprofile.app.repository.JsonStore;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,65 +23,54 @@ public class SkillRepositoryJSON extends JsonRepository<Skill> implements ISkill
 
     @Override
     public List<Skill> findAll() {
-        return data;
+        return new ArrayList<>(data); // evitar modificar lista interna
     }
 
     @Override
     public Optional<Skill> findById(String id) {
-        return data.stream()
-                .filter(s -> s.getId().equals(id))
-                .findFirst();
+        return data.stream().filter(s -> s.getId().equals(id)).findFirst();
     }
 
     @Override
     public void add(Skill skill) {
-        // Validar que no exista una habilidad con el mismo nombre (case insensitive)
         boolean exists = data.stream()
                 .anyMatch(s -> s.getName().equalsIgnoreCase(skill.getName()));
 
         if (exists) {
-            throw new IllegalArgumentException("La habilidad '" + skill.getName() + "' ya existe.");
+            throw new IllegalArgumentException("La habilidad ya existe.");
         }
 
         data.add(skill);
-        save(); // persiste en JSON
+        save();
     }
 
     @Override
     public void update(Skill skill) {
-        Optional<Skill> existingOpt = findById(skill.getId());
+        Skill existing = findById(skill.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Skill no encontrada."));
 
-        if (existingOpt.isEmpty()) {
-            throw new IllegalArgumentException("La habilidad con ID '" + skill.getId() + "' no existe.");
+        boolean nameConflict = data.stream().anyMatch(s
+                -> !s.getId().equals(skill.getId())
+                && s.getName().equalsIgnoreCase(skill.getName())
+        );
+
+        if (nameConflict) {
+            throw new IllegalArgumentException("Otra skill ya usa ese nombre.");
         }
 
-        Skill existing = existingOpt.get();
-
-        // Validar duplicado en nombre (si cambia el nombre)
-        boolean nameExists = data.stream()
-                .anyMatch(s -> !s.getId().equals(skill.getId())
-                && s.getName().equalsIgnoreCase(skill.getName()));
-
-        if (nameExists) {
-            throw new IllegalArgumentException("Otra habilidad ya tiene el nombre '" + skill.getName() + "'.");
-        }
-
-        // Actualizar campos
         existing.setName(skill.getName());
         existing.setLevel(skill.getLevel());
+        existing.setYearsExperience(skill.getYearsExperience());
 
         save();
     }
 
     @Override
     public void delete(String id) {
-        boolean removed = data.removeIf(skill -> skill.getId().equals(id));
-
-        if (!removed) {
-            throw new IllegalArgumentException("No existe una habilidad con ID '" + id + "'.");
+        if (!data.removeIf(s -> s.getId().equals(id))) {
+            throw new IllegalArgumentException("Skill no encontrada.");
         }
 
         save();
     }
-
 }

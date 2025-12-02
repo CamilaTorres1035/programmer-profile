@@ -12,12 +12,10 @@ public final class ProfileRepositoryJSON implements IProfileRepository {
 
     private final JsonStore store;
     private final String filePath;
-    private Profile profile;
 
     public ProfileRepositoryJSON(JsonStore store, String filePath) {
         this.store = store;
         this.filePath = filePath;
-        loadProfile();
     }
 
     /**
@@ -27,12 +25,7 @@ public final class ProfileRepositoryJSON implements IProfileRepository {
      */
     @Override
     public Profile loadProfile() {
-        profile = store.readFromFile(filePath, Profile.class, new Profile());
-
-        if (profile == null) {
-            profile = new Profile();
-        }
-        return null;
+        return store.readFromFile(filePath, Profile.class, new Profile());
     }
 
     @Override

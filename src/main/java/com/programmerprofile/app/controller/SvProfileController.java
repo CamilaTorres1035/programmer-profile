@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author kosmo
  */
-@WebServlet(name = "SvProfileController", urlPatterns = {"/profile", "/editProfile"})
+@WebServlet(name = "SvProfileController", urlPatterns = {"/profile", "/editProfile", "/updateProfile"})
 public class SvProfileController extends HttpServlet {
 
     private IProfileRepository repository;
@@ -53,17 +53,21 @@ public class SvProfileController extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getServletPath();
-
         switch (path) {
             case "/profile":
                 loadProfileView(request, response);
                 break;
-
+            // FALTABA ESTE CASO:
+            case "/editProfile":
+                // Reutilizamos la lógica de cargar perfil para llenar el formulario
+                loadProfileView(request, response); 
+                // O si tienes una vista distinta, redirige a editProfile.jsp aquí
+                // request.getRequestDispatcher("/WEB-INF/views/editProfile.jsp").forward(request, response);
+                break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ruta no encontrada");
         }
     }
-
     private void loadProfileView(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

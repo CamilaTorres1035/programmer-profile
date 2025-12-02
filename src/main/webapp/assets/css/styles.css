@@ -6,4 +6,101 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on : 2/12/2025, 10:26:06 a. m.
     Author     : Usuario
 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+/* --- HEADER PRINCIPAL --- */
+.header {
+  background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+  padding: 2rem 1rem;
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.header h2 {
+  margin-top: 0.5rem;
+  font-weight: 400;
+  color: #dbeafe;
+}
+
+.resumen {
+  margin-top: 1rem;
+  max-width: 600px;
+  line-height: 1.4;
+}
+
+.meta {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* --- CONTENIDO --- */
+.contenedor {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.tarjeta {
+  background: #020617;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #1e293b;
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+}
+
+/* --- LISTA DE SKILLS --- */
+.skills {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skills li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #1e293b;
+}
+
+.skills li:last-child {
+  border-bottom: none;
+}
+
+.skill-nombre {
+  font-weight: 500;
+}
+
+/* --- BOTÓN DE VOLVER --- */
+.link-volver {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.link-volver:hover {
+  text-decoration: underline;
+}
+
 

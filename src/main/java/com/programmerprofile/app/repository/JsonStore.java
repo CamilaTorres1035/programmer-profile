@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author camil
  */
-class JsonStore {
+public class JsonStore {
 
     private final Gson gson;
 

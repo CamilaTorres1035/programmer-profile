@@ -4,9 +4,9 @@
     Author     : Usuario
 --%>
 
+<%@page import="com.programmerprofile.app.model.Skill"%>
+<%@page import="com.programmerprofile.app.model.Profile"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="com.miapp.perfil.model.Profile" %>
-<%@ page import="com.miapp.perfil.model.Skill" %>
 <%@ page import="java.util.List" %>
 
 <%

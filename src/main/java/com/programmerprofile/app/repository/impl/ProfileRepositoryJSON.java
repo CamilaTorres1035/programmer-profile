@@ -20,6 +20,10 @@ public final class ProfileRepositoryJSON implements IProfileRepository {
         loadProfile();
     }
 
+    public ProfileRepositoryJSON() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * Carga el perfil desde el JSON.Si está vacío, se crea un perfil por
  defecto.

@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.programmerprofile.app.controller;
 
 import com.programmerprofile.app.model.Profile;
 import com.programmerprofile.app.model.Skill;
+import com.programmerprofile.app.repository.IProfileRepository;
+import com.programmerprofile.app.repository.ISkillRepository;
+import com.programmerprofile.app.repository.impl.ProfileRepositoryJSON;
+import com.programmerprofile.app.repository.impl.SkillRepositoryJSON;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

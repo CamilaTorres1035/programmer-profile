@@ -17,11 +17,13 @@ public final class ProfileRepositoryJSON implements IProfileRepository {
     public ProfileRepositoryJSON(JsonStore store, String filePath) {
         this.store = store;
         this.filePath = filePath;
-        loadProfile();
+        this.profile = loadProfile();
     }
 
     public ProfileRepositoryJSON() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.store = new JsonStore();
+        this.filePath = "data/profile.json";
+        this.profile = loadProfile();
     }
 
     /**
@@ -36,11 +38,12 @@ public final class ProfileRepositoryJSON implements IProfileRepository {
         if (profile == null) {
             profile = new Profile();
         }
-        return null;
+        return profile;
     }
 
     @Override
     public void saveProfile(Profile profile) {
+        this.profile = profile;
         store.writeToFile(filePath, profile);
     }
 }

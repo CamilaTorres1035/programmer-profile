@@ -8,6 +8,7 @@ import com.programmerprofile.app.repository.impl.ProfileRepositoryJSON;
 import com.programmerprofile.app.repository.impl.SkillRepositoryJSON;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import java.util.List;
  *
  * @author kosmo
  */
+@WebServlet(name = "SvProfileController", urlPatterns = {"/profile", "/editProfile"})
 public class SvProfileController extends HttpServlet {
 
     private IProfileRepository repository;
@@ -64,7 +66,7 @@ public class SvProfileController extends HttpServlet {
         request.setAttribute("profile", profile);
         request.setAttribute("skills", skills);
 
-        request.getRequestDispatcher("/profile.jsp")
+        request.getRequestDispatcher("/WEB-INF/views/profile.jsp")
                 .forward(request, response);
     }
 
@@ -146,14 +148,14 @@ public class SvProfileController extends HttpServlet {
             Profile existing = repository.loadProfile();
             request.setAttribute("profile", existing);
 
-            request.getRequestDispatcher("/edit.jsp")
+            request.getRequestDispatcher("/editprofile.jsp")
                     .forward(request, response);
             return;
         }
 
         // --- 3. Sanitización básica ---
-        name = name.replace("<", "&lt;").replace(">", "&gt;");
-        bio = bio.replace("<", "&lt;").replace(">", "&gt;");
+        name = sanitize(name);
+        bio = sanitize(bio);
 
         // --- 4. Crear objeto Profile actualizado ---
         Profile updated = new Profile();
@@ -169,6 +171,10 @@ public class SvProfileController extends HttpServlet {
 
         // --- 6. Redirigir a la vista principal ---
         response.sendRedirect(request.getContextPath() + "/profile");
+    }
+    
+    private String sanitize(String s){
+        return (s == null) ? null : s.replace("<", "&lt;").replace(">", "&gt;");
     }
 
 }

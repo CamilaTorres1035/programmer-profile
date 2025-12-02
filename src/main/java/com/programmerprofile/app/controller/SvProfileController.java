@@ -4,6 +4,7 @@ import com.programmerprofile.app.model.Profile;
 import com.programmerprofile.app.model.Skill;
 import com.programmerprofile.app.repository.IProfileRepository;
 import com.programmerprofile.app.repository.ISkillRepository;
+import com.programmerprofile.app.repository.JsonStore;
 import com.programmerprofile.app.repository.impl.ProfileRepositoryJSON;
 import com.programmerprofile.app.repository.impl.SkillRepositoryJSON;
 import java.io.IOException;
@@ -28,8 +29,14 @@ public class SvProfileController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.repository = new ProfileRepositoryJSON();
-        this.skillRepository = new SkillRepositoryJSON();
+        JsonStore store = new JsonStore();
+        String dataDir = getServletContext().getRealPath("/WEB-INF/data");
+
+        String profilePath = dataDir + java.io.File.separator + "profile.json";
+        String skillsPath = dataDir + java.io.File.separator + "skills.json";
+
+        this.repository = new ProfileRepositoryJSON(store, profilePath);
+        this.skillRepository = new SkillRepositoryJSON(store, skillsPath);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -172,8 +179,8 @@ public class SvProfileController extends HttpServlet {
         // --- 6. Redirigir a la vista principal ---
         response.sendRedirect(request.getContextPath() + "/profile");
     }
-    
-    private String sanitize(String s){
+
+    private String sanitize(String s) {
         return (s == null) ? null : s.replace("<", "&lt;").replace(">", "&gt;");
     }
 

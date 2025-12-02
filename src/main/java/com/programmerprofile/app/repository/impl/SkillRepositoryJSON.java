@@ -20,10 +20,6 @@ public class SkillRepositoryJSON extends JsonRepository<Skill> implements ISkill
         }.getType());
     }
 
-    public SkillRepositoryJSON() {
-        super(new JsonStore(), "data/skills.json", Skill.class);
-    }
-
     @Override
     public List<Skill> findAll() {
         return data;

@@ -60,14 +60,21 @@ public class SvProfileController extends HttpServlet {
             // FALTABA ESTE CASO:
             case "/editProfile":
                 // Reutilizamos la lógica de cargar perfil para llenar el formulario
-                loadProfileView(request, response); 
+                //loadProfileView(request, response); 
                 // O si tienes una vista distinta, redirige a editProfile.jsp aquí
-                // request.getRequestDispatcher("/WEB-INF/views/editProfile.jsp").forward(request, response);
+                //request.getRequestDispatcher("/WEB-INF/views/editProfile.jsp").forward(request, response);
+                Profile profile = repository.loadProfile();
+                List<Skill> skills = skillRepository.findAll();
+                request.setAttribute("profile", profile);
+                request.setAttribute("skills", skills);
+                // Redirige a la vista de edición, no a la de perfil
+                request.getRequestDispatcher("/WEB-INF/views/editprofile.jsp").forward(request, response);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ruta no encontrada");
         }
     }
+
     private void loadProfileView(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
